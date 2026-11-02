@@ -1,81 +1,81 @@
-# RepoGuide 🧭
+# RepoGuide
 
-> Explain any public GitHub repository in plain English, powered by the **Mozilla Otari AI Gateway**.
+> Explain any public GitHub repository in plain English, powered by the Mozilla Otari AI Gateway.
 
 Built for the **Mozilla Otari Hackathon 2026** (Nov 2 – Nov 10, 2026).
 
 ---
 
-## 🌟 Overview
+## Overview
 
-Understanding a new open-source codebase often takes hours of manual digging through dense documentation, scattered directories, and undocumented conventions. 
+Understanding a new open-source codebase often requires hours of manual exploration through dense documentation, complex directory hierarchies, and undocumented conventions.
 
-**RepoGuide** solves this by turning any public GitHub repository into a clear, digestible developer guide in seconds. Using the **Mozilla Otari AI Gateway**, RepoGuide leverages leading open-weight LLMs to break down repositories into plain English, highlight architectural structure, and allow side-by-side model comparison.
-
----
-
-## ✨ Key Features
-
-- **🔍 One-Click Repository Analysis**: Paste any public GitHub repository URL to receive an instant breakdown:
-  - **What it does**: High-level problem statement and core functionality.
-  - **How to run it**: Practical setup, prerequisites, and execution commands.
-  - **Architecture & Directory Map**: Explanation of primary directories and key entry points.
-- **⚖️ Open-Weight Model Comparison**:
-  - Run analysis across multiple open-weight models (e.g., Llama 3, Mistral, Qwen).
-  - Side-by-side comparison mode to evaluate differences in reasoning, detail, and prompt adherence.
-- **🛡️ Secure Gateway Proxying**:
-  - All communication with Otari is routed through Next.js server-side API endpoints (`Otari-Key`), keeping credentials secure.
-- **⚡ Zero Friction**:
-  - No database, no user accounts, and no authentication walls. Paste and inspect.
-- **📊 Otari Gateway Capabilities**:
-  - Usage tracking, latency/budget monitoring, and unified routing across open-weight models.
+**RepoGuide** resolves this friction by translating any public GitHub repository into a structured, readable technical guide within seconds. Utilizing the **Mozilla Otari AI Gateway**, RepoGuide coordinates open-weight large language models to break down system objectives, setup procedures, and directory architectures, while offering side-by-side model comparison capabilities.
 
 ---
 
-## 🛠️ Architecture & Tech Stack
+## Key Features
+
+- **Automated Repository Analysis**: Input any public GitHub repository URL to receive a structured breakdown:
+  - **Purpose and Scope**: Problem definition, target domain, and core functionality.
+  - **Getting Started**: System prerequisites, installation commands, and execution steps.
+  - **Architecture Overview**: Purpose and contents of primary directories and key entry points.
+- **Open-Weight Model Comparison**:
+  - Execute analyses across distinct open-weight models (such as DeepSeek, Meta, and NVIDIA).
+  - Side-by-side comparative mode to assess differences in reasoning depth, formatting, and structural quality.
+- **Secure Gateway Integration**:
+  - All calls to the Otari gateway are proxied via server-side Next.js route handlers (`Otari-Key`), ensuring credentials are never exposed to the client.
+- **Zero Friction**:
+  - Pure web-based analysis without accounts, databases, or third-party tracking.
+- **Gateway Metrics**:
+  - Visibility into latency, token consumption, and execution costs via Otari response metadata.
+
+---
+
+## Architecture & Technology Stack
 
 ```
-[ User Browser ]
-       │
-       ▼  (Repo URL & Model Selection)
-[ Next.js App Router (Vercel) ]
-       │
-       ├──► [ GitHub REST API ] (README & Tree metadata)
-       │
-       └──► [ Otari AI Gateway ] (Header: Otari-Key)
-                  │
-                  ├──► Open-Weight Model A (e.g., Llama 3)
-                  └──► Open-Weight Model B (e.g., Mistral)
+[ Client Browser ]
+        │
+        ▼  (Repository URL & Model Selection)
+[ Next.js Application (Vercel) ]
+        │
+        ├──► [ GitHub REST API ] (README & Tree Metadata)
+        │
+        └──► [ Otari AI Gateway ] (Header: Otari-Key)
+                   │
+                   ├──► Open-Weight Model A (e.g., DeepSeek V4.1)
+                   └──► Open-Weight Model B (e.g., Meta Muse Spark)
 ```
 
-- **Frontend & Backend**: [Next.js](https://nextjs.org/) (App Router, TypeScript)
+- **Framework**: [Next.js](https://nextjs.org/) (App Router, TypeScript)
+- **Runtime & Package Manager**: [Bun](https://bun.sh/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Data Source**: [GitHub REST API](https://docs.github.com/en/rest)
+- **External Data**: [GitHub REST API](https://docs.github.com/en/rest)
 - **AI Gateway**: [Mozilla Otari](https://otari.ai/)
-- **Deployment**: [Vercel](https://vercel.com/)
+- **Hosting**: [Vercel](https://vercel.com/)
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- **Node.js** (v18.17+ or v20+)
-- **npm**, **pnpm**, or **yarn**
+- **Bun** (v1.1+ recommended) or **Node.js** (v18.17+)
 - An **Otari API Key** (from [otari.ai](https://otari.ai/))
-- *(Optional)* A **GitHub Personal Access Token** (for higher GitHub API rate limits)
+- *(Optional)* A **GitHub Personal Access Token** (increases GitHub API rate limits from 60 to 5,000 req/hr)
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/dendo/repoguide.git
+git clone https://github.com/drissnafii/repoguide.git
 cd repoguide
 git checkout devs-wilding
 ```
 
 ### 2. Configure environment variables
 
-Copy the example environment file and add your credentials:
+Copy the example configuration file:
 
 ```bash
 cp .env.example .env.local
@@ -86,36 +86,37 @@ Edit `.env.local`:
 ```env
 # Mozilla Otari API Key (Required)
 OTARI_API_KEY=your_otari_api_key_here
+OTARI_BASE_URL=https://otari.ai/api/v1
 
-# Optional: GitHub token to increase API rate limits (5,000 req/hr vs 60 req/hr)
+# Optional: GitHub token for higher rate limits
 GITHUB_TOKEN=your_optional_github_token_here
 ```
 
-> **Security Note:** Never commit `.env` or `.env.local` to git. Keep API keys confidential.
+> **Security Notice:** Do not commit `.env` or `.env.local` files to version control.
 
-### 3. Install dependencies & run development server
+### 3. Install dependencies and start development server
 
 ```bash
-npm install
-npm run dev
+bun install
+bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to test RepoGuide.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 📋 Hackathon Rubric & Alignment
+## Hackathon Rubric Alignment
 
-| Category | Points | RepoGuide Implementation |
+| Evaluation Criteria | Weight | Implementation Details |
 | :--- | :---: | :--- |
-| **Open-Weight Models** | **30 pts** | Integrates at least two open-weight models (e.g., Llama 3, Mistral) with side-by-side comparison mode. |
-| **Otari Features** | **60 pts** | Leverages Otari Gateway API routing, model switching, error handling, and usage tracking. |
-| **Project & Demo** | **10 pts** | Clean, intuitive web interface, comprehensive documentation, and 3-5 min demo video. |
+| **Open-Weight Models** | **30 pts** | Integration of at least two open-weight models (DeepSeek, Meta) with side-by-side output evaluation. |
+| **Otari Features** | **60 pts** | Implementation of Otari API routing, model switching, error resilience, and token/cost telemetry. |
+| **Project & Demonstration** | **10 pts** | Production-ready web interface, comprehensive documentation, and video demonstration. |
 | **Total** | **100 pts** | |
 
 ---
 
-## 📂 Project Structure (Planned)
+## Project Structure
 
 ```text
 repoguide/
@@ -123,37 +124,37 @@ repoguide/
 │   ├── app/
 │   │   ├── api/
 │   │   │   ├── analyze/route.ts      # Server-side proxy to Otari Gateway
-│   │   │   └── github/route.ts       # GitHub repo metadata & tree fetcher
+│   │   │   └── github/route.ts       # GitHub repository metadata and tree fetcher
 │   │   ├── layout.tsx                # Root layout
-│   │   └── page.tsx                  # Main RepoGuide UI & comparison view
+│   │   └── page.tsx                  # Primary application interface and comparison view
 │   ├── components/
-│   │   ├── RepoInput.tsx             # Repository URL input & validator
-│   │   ├── ModelSelector.tsx         # Open-weight model selector & toggle
-│   │   ├── ComparisonView.tsx        # Side-by-side model comparison cards
-│   │   └── MarkdownViewer.tsx        # Formatted markdown renderer
+│   │   ├── RepoInput.tsx             # Repository URL validation and input
+│   │   ├── ModelSelector.tsx         # Open-weight model selector and configuration
+│   │   ├── ComparisonView.tsx        # Comparative side-by-side report layout
+│   │   └── MarkdownViewer.tsx        # Structured markdown renderer
 │   ├── lib/
-│   │   ├── github.ts                 # GitHub REST client
+│   │   ├── github.ts                 # GitHub REST API client
 │   │   └── otari.ts                  # Otari Gateway client wrapper
 │   └── types/
-│       └── index.ts                  # TypeScript definitions
-├── public/                           # Static assets & screenshots
+│       └── index.ts                  # Shared TypeScript interfaces
+├── public/                           # Static assets
 ├── .env.example                      # Template for required environment variables
-├── .gitignore                        # Git ignore rules (protecting secrets)
-├── package.json                      # Project dependencies & scripts
-└── README.md                         # Project documentation
+├── .gitignore                        # Git exclusion rules
+├── package.json                      # Project dependencies and scripts
+└── README.md                         # Technical documentation
 ```
 
 ---
 
-## 🎥 Demo Video & Submission
+## Demonstration & Submission Deliverables
 
-- **Live URL**: *(To be added upon Vercel deployment)*
-- **Demo Video (3–5 min)**: *(Link to public/unlisted video)*
-- **Feedback Recording**: *(Link to 3–5 min feedback screen recording)*
-- **First Otari Gateway Commit**: *(Commit SHA to be linked)*
+- **Deployment URL**: *(To be updated upon Vercel production deployment)*
+- **Walkthrough Video (3–5 min)**: *(Unlisted / Public video link)*
+- **Feedback Video (3–5 min)**: *(Developer feedback recording)*
+- **First Gateway Commit**: `33911c5`
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
